@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import java.util.List;
@@ -113,11 +115,13 @@ public class BaseTest {
 
 // Move to the play button to hover over it
         actions.moveToElement(playButton).perform();
-        try {
+       /* try {
             Thread.sleep(2000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
+        */
         playButton.click();
 
     }
@@ -140,11 +144,13 @@ public class BaseTest {
            if (okButton != null) {
 
                okButton.click();
-               try {
+            /*   try {
                    Thread.sleep(3000);
                } catch (InterruptedException e) {
                    throw new RuntimeException(e);
                }
+
+             */
            }
        }
        catch (Exception e) {
@@ -152,7 +158,8 @@ public class BaseTest {
        }
         //WebElement okButton = driver.findElement(By.cssSelector("button.ok[title='Ok']"));
 
-        WebElement alertMessage = driver.findElement(By.cssSelector("div.success.show"));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10)); // wait for up to 10 seconds
+        WebElement alertMessage = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
         //Assert.assertEquals(getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
         String alertText = alertMessage.getText();
         System.out.println(alertText);
