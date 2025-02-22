@@ -9,11 +9,12 @@
             <class name="BaseTest"/>
             <class name="Homework16"/>
             <class name="homework17"/>
-            <class name="Homework18">
+            <class name="Homework18"/>
+            <class name ="Homework19"/>
                 <methods>
-                    <include name="Homework18Test"/>
+                    <include name="Homework19Test"/>
                 </methods>
-            </class>
+
 
         </classes>
     </test>

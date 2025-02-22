@@ -5,12 +5,17 @@
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
+
+import org.bouncycastle.operator.bc.BcSignerOutputStream;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
-
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class BaseTest {
     WebDriver driver;
 
@@ -114,6 +119,57 @@ public class BaseTest {
             throw new RuntimeException(e);
         }
         playButton.click();
+
+    }
+    public boolean deletePlaylist()  {
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5L));
+        List<WebElement> links = driver.findElements(By.cssSelector("section li.playlist a:not([name='x']):not([name='y'])"
+        ));
+        WebElement choosePlayList = links.get(2); // gets the third element
+        //WebElement choosePlayList = this.driver.findElement(By.cssSelector("li.playlist.playlist.playlist"));
+        String playlistName = choosePlayList.getText();
+        System.out.println(playlistName);
+        choosePlayList.click();
+
+        WebElement deleteButton = driver.findElement(By.cssSelector("button.del.btn-delete-playlist[title='Delete this playlist']"));
+        //WebElement deleteBtn = this.driver.findElement(By.xpath("//button[@data-testid='delete-btn']"));
+        deleteButton.click();
+        this.driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1L));
+       try {
+           WebElement okButton = driver.findElement(By.cssSelector("button.ok[tabindex='1']"));
+           if (okButton != null) {
+
+               okButton.click();
+               try {
+                   Thread.sleep(3000);
+               } catch (InterruptedException e) {
+                   throw new RuntimeException(e);
+               }
+           }
+       }
+       catch (Exception e) {
+
+       }
+        //WebElement okButton = driver.findElement(By.cssSelector("button.ok[title='Ok']"));
+
+        WebElement alertMessage = driver.findElement(By.cssSelector("div.success.show"));
+        //Assert.assertEquals(getDeletedPlaylistMsg(), expectedPlaylistDeletedMessage);
+        String alertText = alertMessage.getText();
+        System.out.println(alertText);
+        Pattern pattern = Pattern.compile("\"([^\\\"]*?)([.])?\"");
+        Matcher matcher = pattern.matcher(alertText);
+        String messagePlaylist = "";
+
+
+        if (matcher.find()) {
+            messagePlaylist = matcher.group(1);
+            System.out.println(messagePlaylist);
+        }
+        if (messagePlaylist.equals(playlistName)) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 }
