@@ -8,9 +8,12 @@ import java.time.Duration;
 
 import org.bouncycastle.operator.bc.BcSignerOutputStream;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeSuite;
 import java.util.List;
@@ -168,6 +171,31 @@ public class BaseTest {
         if (messagePlaylist.equals(playlistName)) {
             return true;
         } else {
+            return false;
+        }
+
+    }
+    public String newPlaylistName = "Edited Playlist";
+    public void doubleClickPlaylist() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement playlistElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".playlist:nth-child(3)")));
+        new Actions(driver).doubleClick(playlistElement).perform();
+    }
+    public void enterNewPlaylistName(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement playlistInputField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("[name='name']")));
+        playlistInputField.sendKeys(Keys.chord(Keys.CONTROL,"A",Keys.BACK_SPACE));
+        playlistInputField.sendKeys(newPlaylistName);
+        playlistInputField.sendKeys(Keys.ENTER);
+    }
+    public boolean getRenamePlaylistSuccessMsg(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        WebElement notification = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("div.success.show")));
+        String message = notification.getText();
+        if (message.contains("Updated playlist")) {
+            return true;
+        }
+        else {
             return false;
         }
 
