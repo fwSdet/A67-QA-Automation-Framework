@@ -7,6 +7,16 @@
         <classes>
             <class name="LoginTests"/>
             <class name="BaseTest"/>
+            <class name="Homework16"/>
+            <class name="homework17"/>
+            <class name="Homework18"/>
+            <class name ="Homework19"/>
+            <class name ="Homework20"/>
+                <methods>
+                    <include name="Homework20Test"/>
+                </methods>
+
+
         </classes>
     </test>
 </suite>
