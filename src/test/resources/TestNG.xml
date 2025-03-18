@@ -24,6 +24,11 @@
                     <include name="RenamePlayListTest"/>
                 </methods>
             </class>
+            <class name="Homework23">
+                <methods>
+                    <include name="RenamePlayListTest"/>
+                </methods>
+            </class>
 
         </classes>
     </test>

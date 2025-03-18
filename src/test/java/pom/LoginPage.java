@@ -14,19 +14,24 @@ public class LoginPage extends BasePage{
     @FindBy(css="input[type='email']")
     WebElement inputEmail;
     By passwordField = By.cssSelector("input[type='password']");
-    By submitButton = By.cssSelector("button[type='submit']");
-
+    @FindBy(css="input[type='password']")
+    WebElement inputPassword;
+    //By submitButton = By.cssSelector("button[type='submit']");
+    @FindBy(css="button[type='submit']")
+    WebElement submitButton;
     public void enterEmail(String email) {
-        findElement(emailField).sendKeys(email);
-        //inputEmail.sendKeys(email);
+        //findElement(emailField).sendKeys(email);
+         inputEmail.sendKeys(email);
     }
 
     public void enterPassword(String password) {
-        findElement(passwordField).sendKeys(password);
+        //findElement(passwordField).sendKeys(password);
+        inputPassword.sendKeys(password);
     }
 
     public void clickSubmit() {
-        findElement(submitButton).click();
+       // findElement(submitButton).click();
+        submitButton.click();
     }
 
     public void clickLogin() {
