@@ -10,7 +10,7 @@ import pom.LoginPage;
 
 import java.time.Duration;
 
-public class Homework21 extends BaseTest {
+public class Homework22 extends BaseTest {
     @Test
     public void RenamePlayListTest() {
         driver = new ChromeDriver();

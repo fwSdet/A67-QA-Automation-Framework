@@ -20,10 +20,16 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 public class BaseTest {
-    WebDriver driver;
+    //WebDriver driver;
 
-    public BaseTest() {
-    }
+
+        //     public class BaseTest() {
+        public static WebDriver driver = null;
+        public static String url = null;
+        public static WebDriverWait wait = null;
+
+        public static Actions actions = null;
+
 
     @BeforeSuite
     static void setupClass() {
